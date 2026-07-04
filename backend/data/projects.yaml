@@ -1,0 +1,49 @@
+projects:
+  - id: "job-hunter"
+    name: "Job Hunter"
+    description: "An AI-powered job tracking and application platform."
+    tech_stack: ["Python", "FastAPI", "React", "TypeScript"]
+    problem: "Job seekers struggle to track hundreds of applications and customize resumes."
+    solution: "A centralized dashboard that automatically parses job descriptions and suggests resume edits."
+    challenges: "Parsing complex PDF resumes accurately."
+    results: "Reduced average application time by 40%."
+    github_url: "https://github.com/keshavmishra27/job-hunter"
+    demo_url: "https://keshavmishra27.github.io/job-hunter/"
+    timeline: "Jan 2024 - Present"
+
+  - id: "blueprintai"
+    name: "BlueprintAI"
+    description: "Algorithmic group formation tool for classrooms."
+    tech_stack: ["Python", "Flask", "Vue.js"]
+    problem: "Teachers spend hours manually creating balanced student groups."
+    solution: "An algorithm that clusters students based on skills and learning styles."
+    challenges: "Designing an efficient clustering algorithm."
+    results: "Adopted by 5 local schools."
+    github_url: "https://github.com/keshavmishra27/blueprintAI"
+    demo_url: "https://keshavmishra27.github.io/BlueprintAI/"
+    timeline: "Sep 2023 - Dec 2023"
+
+
+  - id: "insightforge"
+    name: "InsightForge"
+    description: "An advanced analytics tool leveraging AI."
+    tech_stack: ["Python", "FastAPI", "React", "LLMs"]
+    problem: "Extracting intelligence from unstructured data is tedious."
+    solution: "An AI-powered pipeline to parse and generate structured insights."
+    challenges: "Building robust data pipelines and ensuring NLP accuracy."
+    results: "Accelerated data analysis workflows significantly."
+    github_url: "https://github.com/keshavmishra27/insightforge"
+    demo_url: ""
+    timeline: "2024"
+
+  - id: "resort"
+    name: "Resort Management System"
+    description: "A comprehensive booking and management platform."
+    tech_stack: ["React", "Node.js", "MongoDB", "Express"]
+    problem: "Managing resort bookings manually causes scheduling conflicts."
+    solution: "A booking platform with real-time room availability and billing."
+    challenges: "Handling complex date-range queries for availability."
+    results: "Improved booking efficiency by 40%."
+    github_url: "https://github.com/keshavmishra27/resort"
+    demo_url: "https://keshavmishra27.github.io/resort/"
+    timeline: "2023"
