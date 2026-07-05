@@ -85,12 +85,14 @@ function NeuralNodes() {
             count={positions.length / 3}
             array={positions}
             itemSize={3}
+            args={[positions, 3]}
           />
           <bufferAttribute
             attach="attributes-color"
             count={colors.length / 3}
             array={colors}
             itemSize={3}
+            args={[colors, 3]}
           />
         </bufferGeometry>
         <pointsMaterial
@@ -109,12 +111,14 @@ function NeuralNodes() {
             count={linePositions.length / 3}
             array={linePositions}
             itemSize={3}
+            args={[linePositions, 3]}
           />
           <bufferAttribute
             attach="attributes-color"
             count={lineColors.length / 3}
             array={lineColors}
             itemSize={3}
+            args={[lineColors, 3]}
           />
         </bufferGeometry>
         <lineBasicMaterial

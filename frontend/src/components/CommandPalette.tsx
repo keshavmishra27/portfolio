@@ -8,7 +8,7 @@ const STATIC_COMMANDS = [
   { id: 'home', title: 'Go to Home', icon: <Terminal size={16} />, path: '/' },
   { id: 'projects', title: 'View Projects', icon: <Code size={16} />, path: '/projects' },
   { id: 'services', title: 'View Services', icon: <Briefcase size={16} />, path: '/services' },
-  { id: 'resume', title: 'Download Resume', icon: <User size={16} />, path: '/resume' },
+  { id: 'skillset', title: 'View Skillset', icon: <User size={16} />, path: '/skillset' },
   { id: 'contact', title: 'Contact Me', icon: <Mail size={16} />, path: '/contact' },
   { id: 'architecture', title: 'System Architecture', icon: <Terminal size={16} />, path: '/architecture' },
 ];

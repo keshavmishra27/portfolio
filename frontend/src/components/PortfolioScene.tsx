@@ -73,7 +73,7 @@ export function Annotation({ project, position, index }: { project: Project; pos
 
 const FEATURES = [
   { name: 'Projects', path: '/projects', external: false },
-  { name: 'Resume', path: '/resume.pdf', external: true },
+  { name: 'Skillset', path: '/skillset', external: false },
   { name: 'Architecture', path: '/architecture', external: false },
   { name: 'Portal', path: '/', external: false }
 ];

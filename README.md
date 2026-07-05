@@ -1,15 +1,14 @@
-# Keshav Mishra - Portfolio & Engineering Platform
+# Keshav Mishra - 3D Interactive Portfolio & Engineering Platform
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/react-v19.2.7-blue.svg?logo=react)
 ![FastAPI](https://img.shields.io/badge/FastAPI-1.0.0-009688.svg?logo=fastapi)
 ![Three.js](https://img.shields.io/badge/Three.js-3D-black.svg?logo=three.js)
 
-Welcome to the **Keshav Mishra Portfolio Platform**! This is a modular, service-oriented web platform built with a modern React frontend (powered by Vite and Three.js for 3D elements) and a FastAPI backend integrating AI capabilities via CrewAI.
+Welcome to the **Keshav Mishra Portfolio Platform**! This is a modular, service-oriented web platform built with a modern React frontend (powered by Vite and Three.js for immersive 3D elements) and a FastAPI backend integrating AI capabilities via CrewAI.
 
 ---
 
-##  Architecture Flow
+## 🏗️ Architecture Flow
 
 The platform relies on a decoupled frontend and backend. Below is an interactive flowchart illustrating how the components communicate:
 
@@ -42,24 +41,24 @@ graph TD
 
 ---
 
-##  Features
+## ✨ Features
 
 | Feature | Description | Status |
 | :--- | :--- | :---: |
-| **Interactive 3D Scenes** | Integrates Three.js / React Three Fiber for immersive 3D graphics (e.g., Megatron Scene). | ✅ Live |
+| **Interactive 3D Scenes** | Integrates Three.js / React Three Fiber for immersive 3D graphics, featuring animated characters (e.g., Balthazar) and dynamic HUD elements. | ✅ Live |
+| **Dynamic Skillset Showcase** | Immersive skillset section featuring 3D backgrounds that intelligently adapt to your screen, overlaying your tech stack and projects. | ✅ Live |
 | **AI Assistant** | Powered by FastAPI and CrewAI to interact with users dynamically using Groq LLMs. | ✅ Live |
 | **Modern UI/UX** | Built with Framer Motion and standard CSS/TSX for a responsive, sleek experience. | ✅ Live |
 | **Command Palette** | Quick navigation tool for power users to navigate the platform seamlessly. | ✅ Live |
-| **Docker Support** | Containerization for frictionless deployments across environments. | 🔜 Planned |
 
 ---
 
-##  Technology Stack
+## 💻 Technology Stack
 
 | Category | Technology | Purpose |
 | :--- | :--- | :--- |
 | **Frontend Framework** | React 19 + Vite | Fast compilation and component-based UI. |
-| **3D Rendering** | Three.js + React Three Fiber/Drei | WebGL graphics, glTF model loading, and 3D scenes. |
+| **3D Rendering** | Three.js + React Three Fiber/Drei | WebGL graphics, animated glTF model loading, and 3D scenes. |
 | **Animations** | Framer Motion | Smooth page transitions and element animations. |
 | **Backend Framework** | FastAPI | High-performance, asynchronous REST API. |
 | **AI Workflows** | CrewAI + Groq | Multi-agent workflows and high-speed LLM inference. |
@@ -67,7 +66,7 @@ graph TD
 
 ---
 
-##  Project Structure
+## 📁 Project Structure
 
 ```text
 d:\kfiles\portfolio\
@@ -76,9 +75,10 @@ d:\kfiles\portfolio\
 │   ├── main.py            # FastAPI application entrypoint
 │   └── requirements.txt   # Python dependencies
 ├── frontend/              # React + Vite Frontend
+│   ├── public/models/     # Huge 3D Assets (GLB, GLTF)
 │   ├── src/
 │   │   ├── components/    # Reusable UI & 3D Components
-│   │   ├── pages/         # View pages (e.g., Landing)
+│   │   ├── pages/         # View pages (e.g., Landing, Skillset)
 │   │   └── App.tsx        # Main React application
 │   └── package.json       # Node dependencies
 ├── portfolio.db           # SQLite database
@@ -88,7 +88,7 @@ d:\kfiles\portfolio\
 
 ---
 
-##  Quickstart (Under 5 Minutes)
+## 🚀 Quickstart (Under 5 Minutes)
 
 You can run the entire stack using the provided helper scripts or manually via terminal.
 
@@ -140,7 +140,7 @@ The frontend UI will run on `http://localhost:5173`
 
 ---
 
-##  Environment Variables
+## 🔐 Environment Variables
 Copy `.env.example` to `.env` in the `backend/` directory:
 ```env
 GROQ_API_KEY=your-api-key       # Required for the AI Chat Agent
@@ -149,5 +149,5 @@ GITHUB_TOKEN=optional-token     # Optional, increases API limits for GitHub stat
 
 ---
 
-##  Future Enhancements
-* **Docker Support**: A `docker-compose.yml` will be added in the future for deployment to containerized environments, but local development relies on `venv` and `npm` to keep the setup as lightweight as possible.
+## 🔮 Future Enhancements
+* **Docker Support**: A `docker-compose.yml` will be added in the future for deployment to containerized environments. Local development relies on `venv` and `npm` to keep the setup as lightweight as possible.

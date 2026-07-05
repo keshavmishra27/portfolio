@@ -49,3 +49,8 @@ DESIGN.md
 *.avi
 *.mkv
 *.webm
+*.glb
+*.gltf
+*.obj
+*.fbx
+*.blend

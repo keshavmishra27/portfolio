@@ -1,11 +1,11 @@
 import { Suspense, useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Environment, OrbitControls, Center, useAnimations } from '@react-three/drei';
+import { useGLTF, Environment, OrbitControls, Center, useAnimations, Bounds } from '@react-three/drei';
 import * as THREE from 'three';
 
-function MegatronModel() {
+function MegatronModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, rotation?: [number, number, number] }) {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF('/models/megatron.glb');
+  const { scene, animations } = useGLTF('/models/balthazar_rigged__animated.glb');
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {
@@ -23,8 +23,8 @@ function MegatronModel() {
   });
 
   return (
-    <group ref={group}>
-      <primitive object={scene} scale={2.5} />
+    <group ref={group} rotation={rotation}>
+      <primitive object={scene} scale={scale} />
     </group>
   );
 }
@@ -37,14 +37,15 @@ export function MegatronScene() {
         <directionalLight position={[10, 10, 5]} intensity={2} castShadow />
         <directionalLight position={[-10, -10, -5]} intensity={1} color="#296ef9" />
         <directionalLight position={[0, 5, -10]} intensity={1} color="#ff0000" />
-        
+
         <Suspense fallback={null}>
           <Environment preset="city" />
           <Center>
-            <MegatronModel />
+            {/* Scaled down the model to fit correctly */}
+            <MegatronModel scale={1.5} rotation={[0, Math.PI / 6, 0]} />
           </Center>
         </Suspense>
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
+        <OrbitControls enableZoom={false} />
       </Canvas>
     </div>
   );

@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
-import { fetchProjects, type Project } from '../api';
-import { Terminal, User, Mail, Cpu } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 import { PortfolioScene } from '../components/PortfolioScene';
 import { motion } from 'framer-motion';
 
