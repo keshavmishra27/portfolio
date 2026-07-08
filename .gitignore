@@ -54,3 +54,7 @@ DESIGN.md
 *.obj
 *.fbx
 *.blend
+
+# Utility Scripts
+strip_py.py
+strip_js.cjs
