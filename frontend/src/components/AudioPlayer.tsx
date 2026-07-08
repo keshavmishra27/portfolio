@@ -1,11 +1,83 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function AudioPlayer() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const playerRef = useRef<any>(null);
 
-  
-  
   const YOUTUBE_VIDEO_ID = "6HJjhZ-jloI"; 
+
+  useEffect(() => {
+    // Load the YouTube IFrame API script
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    if (firstScriptTag && firstScriptTag.parentNode) {
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    } else {
+      document.head.appendChild(tag);
+    }
+
+    // Initialize player when API is ready
+    (window as any).onYouTubeIframeAPIReady = () => {
+      playerRef.current = new (window as any).YT.Player('youtube-audio-player', {
+        height: '0',
+        width: '0',
+        videoId: YOUTUBE_VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: YOUTUBE_VIDEO_ID,
+          controls: 0,
+          showinfo: 0,
+          modestbranding: 1
+        },
+        events: {
+          onReady: (event: any) => {
+            // Attempt autoplay
+            event.target.playVideo();
+          },
+          onStateChange: (event: any) => {
+            if (event.data === (window as any).YT.PlayerState.PLAYING) {
+              setIsPlaying(true);
+            } else {
+              setIsPlaying(false);
+            }
+          }
+        }
+      });
+    };
+
+    // Play on first user interaction if autoplay failed
+    const handleInteraction = () => {
+      if (playerRef.current && typeof playerRef.current.playVideo === 'function' && !isPlaying) {
+        playerRef.current.playVideo();
+      }
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+    };
+
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('keydown', handleInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+      (window as any).onYouTubeIframeAPIReady = undefined;
+    };
+  }, []);
+
+  const togglePlay = () => {
+    if (playerRef.current && typeof playerRef.current.getPlayerState === 'function') {
+      const state = playerRef.current.getPlayerState();
+      if (state === 1 || isPlaying) { // PLAYING
+        playerRef.current.pauseVideo();
+        setIsPlaying(false);
+      } else {
+        playerRef.current.playVideo();
+        setIsPlaying(true);
+      }
+    }
+  };
 
   return (
     <div style={{
@@ -18,31 +90,11 @@ export function AudioPlayer() {
       alignItems: 'flex-end',
       gap: '10px'
     }}>
-      {}
-      <div style={{
-          background: 'var(--bg-glass)',
-          backdropFilter: 'blur(10px)',
-          borderRadius: '12px',
-          padding: '8px',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-          border: '1px solid var(--border-color)',
-          display: isOpen ? 'block' : 'none',
-          animation: 'slideUp 0.3s ease-out'
-        }}>
-          <iframe 
-            width="300" 
-            height="200" 
-            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`} 
-            title="YouTube music player" 
-            frameBorder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            style={{ borderRadius: '8px' }}
-            allowFullScreen>
-          </iframe>
-      </div>
+      {/* Invisible YouTube Player */}
+      <div id="youtube-audio-player" style={{ position: 'absolute', width: '0px', height: '0px', opacity: 0, pointerEvents: 'none' }}></div>
       
       <button 
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={togglePlay}
         style={{
           background: 'var(--bg-glass)',
           border: '1px solid var(--border-color)',
@@ -57,13 +109,14 @@ export function AudioPlayer() {
           backdropFilter: 'blur(10px)',
           color: 'var(--text-primary)',
           fontSize: '24px',
-          transition: 'all 0.2s ease'
+          transition: 'all 0.2s ease',
+          opacity: isPlaying ? 1 : 0.6
         }}
-        title="Toggle Music Player"
+        title={isPlaying ? "Pause Music" : "Play Music"}
         onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
         onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
       >
-        🎵
+        {isPlaying ? '🔊' : '🔇'}
       </button>
     </div>
   );
