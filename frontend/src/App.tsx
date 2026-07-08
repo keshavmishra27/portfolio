@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, useParams, useLocation, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useParams, useLocation, Navigate } from 'react-router-dom';
 import { useState, useEffect, Suspense } from 'react';
 import { CommandPalette } from './components/CommandPalette';
 import { fetchProjects, type Project } from './api';
