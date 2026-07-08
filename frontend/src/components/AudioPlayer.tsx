@@ -7,18 +7,9 @@ export function AudioPlayer() {
   const YOUTUBE_VIDEO_ID = "6HJjhZ-jloI"; 
 
   useEffect(() => {
-    // Load the YouTube IFrame API script
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    if (firstScriptTag && firstScriptTag.parentNode) {
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    } else {
-      document.head.appendChild(tag);
-    }
-
-    // Initialize player when API is ready
-    (window as any).onYouTubeIframeAPIReady = () => {
+    const initPlayer = () => {
+      if (!document.getElementById('youtube-audio-player')) return;
+      
       playerRef.current = new (window as any).YT.Player('youtube-audio-player', {
         height: '0',
         width: '0',
@@ -33,7 +24,6 @@ export function AudioPlayer() {
         },
         events: {
           onReady: (event: any) => {
-            // Attempt autoplay
             event.target.playVideo();
           },
           onStateChange: (event: any) => {
@@ -47,7 +37,20 @@ export function AudioPlayer() {
       });
     };
 
-    // Play on first user interaction if autoplay failed
+    if (!(window as any).YT || !(window as any).YT.Player) {
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      if (firstScriptTag && firstScriptTag.parentNode) {
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        document.head.appendChild(tag);
+      }
+      (window as any).onYouTubeIframeAPIReady = initPlayer;
+    } else {
+      initPlayer();
+    }
+
     const handleInteraction = () => {
       if (playerRef.current && typeof playerRef.current.playVideo === 'function' && !isPlaying) {
         playerRef.current.playVideo();
@@ -62,7 +65,6 @@ export function AudioPlayer() {
     return () => {
       document.removeEventListener('click', handleInteraction);
       document.removeEventListener('keydown', handleInteraction);
-      (window as any).onYouTubeIframeAPIReady = undefined;
     };
   }, []);
 
