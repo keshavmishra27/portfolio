@@ -6,11 +6,19 @@ export function AudioPlayer() {
 
   const YOUTUBE_VIDEO_ID = "6HJjhZ-jloI"; 
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    let isMounted = true;
+
     const initPlayer = () => {
-      if (!document.getElementById('youtube-audio-player')) return;
+      if (!isMounted || !wrapperRef.current) return;
       
-      playerRef.current = new (window as any).YT.Player('youtube-audio-player', {
+      // Create a fresh div for YouTube to replace
+      const playerDiv = document.createElement('div');
+      wrapperRef.current.appendChild(playerDiv);
+      
+      playerRef.current = new (window as any).YT.Player(playerDiv, {
         height: '0',
         width: '0',
         videoId: YOUTUBE_VIDEO_ID,
@@ -24,9 +32,10 @@ export function AudioPlayer() {
         },
         events: {
           onReady: (event: any) => {
-            event.target.playVideo();
+            if (isMounted) event.target.playVideo();
           },
           onStateChange: (event: any) => {
+            if (!isMounted) return;
             if (event.data === (window as any).YT.PlayerState.PLAYING) {
               setIsPlaying(true);
             } else {
@@ -48,7 +57,8 @@ export function AudioPlayer() {
       }
       (window as any).onYouTubeIframeAPIReady = initPlayer;
     } else {
-      initPlayer();
+      // Delay slightly to ensure DOM is ready if it's a fast remount
+      setTimeout(initPlayer, 0);
     }
 
     const handleInteraction = () => {
@@ -63,8 +73,16 @@ export function AudioPlayer() {
     document.addEventListener('keydown', handleInteraction);
 
     return () => {
+      isMounted = false;
       document.removeEventListener('click', handleInteraction);
       document.removeEventListener('keydown', handleInteraction);
+      
+      if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+        playerRef.current.destroy();
+      }
+      if (wrapperRef.current) {
+        wrapperRef.current.innerHTML = '';
+      }
     };
   }, []);
 
@@ -92,8 +110,8 @@ export function AudioPlayer() {
       alignItems: 'flex-end',
       gap: '10px'
     }}>
-      {/* Invisible YouTube Player */}
-      <div id="youtube-audio-player" style={{ position: 'absolute', width: '0px', height: '0px', opacity: 0, pointerEvents: 'none' }}></div>
+      {/* Invisible YouTube Player Wrapper */}
+      <div ref={wrapperRef} style={{ position: 'absolute', width: '0px', height: '0px', opacity: 0, pointerEvents: 'none' }}></div>
       
       <button 
         onClick={togglePlay}
