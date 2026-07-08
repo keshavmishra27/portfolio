@@ -20,7 +20,7 @@ function ShowcaseModel({ modelPath, scale = 1 }: { modelPath: string, scale?: nu
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {
-    // Play the first animation if it exists in the glb file
+    
     if (names.length > 0 && actions[names[0]]) {
       actions[names[0]]?.reset().fadeIn(0.5).play();
     }
@@ -28,7 +28,7 @@ function ShowcaseModel({ modelPath, scale = 1 }: { modelPath: string, scale?: nu
 
   useFrame((state) => {
     if (group.current && names.length === 0) {
-      // Fallback: if no built-in animations, add a subtle breathing/floating effect
+      
       group.current.position.y = Math.sin(state.clock.elapsedTime) * 0.1;
     }
   });

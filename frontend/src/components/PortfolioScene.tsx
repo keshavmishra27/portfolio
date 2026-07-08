@@ -1,15 +1,34 @@
-import { Suspense, useState, useRef } from 'react';
+import { Suspense, useState, useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Environment, Html, OrbitControls, Center, Loader } from '@react-three/drei';
+import { useGLTF, Environment, Html, OrbitControls, Center, Loader, useAnimations } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 import type { Project } from '../api';
 
+function useTheme() {
+  const [theme, setTheme] = useState(document.documentElement.getAttribute('data-theme') || 'dark');
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-theme') {
+          setTheme(document.documentElement.getAttribute('data-theme') || 'dark');
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+    return () => observer.disconnect();
+  }, []);
+
+  return theme;
+}
+
 export const FALLBACK_POSITIONS: [number, number, number][] = [
-  [-1.5, 1, 0],
-  [0, 1.5, -0.5],
-  [1.5, 0.8, 0],
-  [-2, 0.5, 1.5],
+  [-2.2, 0.7, 0],   
+  [0, 1.6, -1],   
+  [2.2, 0.7, 0],    
+  [0, 0.2, 1.5],  
   [2, 0.5, 1],
   [0, 0, 1.5],
   [-1, 2, -1],
@@ -19,8 +38,21 @@ export const FALLBACK_POSITIONS: [number, number, number][] = [
 ];
 
 function Model() {
-  const { scene } = useGLTF('/models/kronenbourg.glb');
-  return <primitive object={scene} />;
+  const group = useRef<THREE.Group>(null);
+  const { scene, animations } = useGLTF('/models/sci-fi_computer_room.glb');
+  const { actions, names } = useAnimations(animations, group);
+
+  useEffect(() => {
+    names.forEach(name => {
+      actions[name]?.reset().fadeIn(0.5).play();
+    });
+  }, [names, actions]);
+
+  return (
+    <group ref={group}>
+      <primitive object={scene} scale={25} position={[0, -1.5, 0]} />
+    </group>
+  );
 }
 
 export function Annotation({ project, position, index }: { project: Project; position: [number, number, number], index: number }) {
@@ -107,38 +139,43 @@ function SceneContainer() {
   const annotationsRef = useRef<THREE.Group>(null);
 
   useFrame(() => {
-    // Calculate scroll progress (0 to 1 based on 100vh of scrollable space)
     const scrollY = window.scrollY;
-    // Assume about 1 window height of scroll available, clamp between 0 and 1
     const progress = Math.min(Math.max(scrollY / window.innerHeight, 0), 1);
 
-    if (groupRef.current) {
-      // Scale from 1x to 2.5x max
-      const scale = 1 + (progress * 1.5);
-      groupRef.current.scale.lerp(new THREE.Vector3(scale, scale, scale), 0.1);
-      groupRef.current.position.lerp(new THREE.Vector3(0, -progress * 1.2, 0), 0.1);
-    }
-    
-    if (annotationsRef.current) {
-      // Buttons start at scale 2 (spread out) and move to 1 (near)
-      const buttonSpread = 2 - progress;
-      annotationsRef.current.scale.lerp(new THREE.Vector3(buttonSpread, buttonSpread, buttonSpread), 0.1);
+    if (groupRef.current && annotationsRef.current) {
+      
+      const scale = 1 + (progress * 0.35);
+      const vecScale = new THREE.Vector3(scale, scale, scale);
+
+      
+      const vecPos = new THREE.Vector3(0, -progress * 0.5, 0);
+
+      groupRef.current.scale.lerp(vecScale, 0.1);
+      groupRef.current.position.lerp(vecPos, 0.1);
+
+      
+      annotationsRef.current.scale.lerp(vecScale, 0.1);
+      annotationsRef.current.position.lerp(vecPos, 0.1);
     }
   });
 
   return (
     <group>
       <group ref={groupRef}>
-        <Model />
+        {}
+        <Center>
+          <Model />
+        </Center>
       </group>
+
       <group ref={annotationsRef}>
         {FEATURES.map((feature, index) => {
           const pos = FALLBACK_POSITIONS[index % FALLBACK_POSITIONS.length];
           return (
-            <FeatureAnnotation 
-              key={feature.name} 
-              feature={feature} 
-              position={pos} 
+            <FeatureAnnotation
+              key={feature.name}
+              feature={feature}
+              position={pos}
             />
           );
         })}
@@ -148,24 +185,28 @@ function SceneContainer() {
 }
 
 export function PortfolioScene() {
+  const theme = useTheme();
+  const isLight = theme === 'light';
+
   return (
     <>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0 }}>
-        <Canvas shadows camera={{ position: [0, 2, 8], fov: 50 }}>
-          <ambientLight intensity={1.5} />
-          <directionalLight position={[10, 20, 10]} intensity={2} castShadow />
-          
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, background: 'var(--bg-primary)', transition: 'background 0.3s ease' }}>
+        <Canvas shadows camera={{ position: [0, 1.2, 4], fov: 55 }}>
+          <color attach="background" args={[isLight ? '#f8f9fa' : '#020205']} />
+          <ambientLight intensity={isLight ? 0.8 : 0.15} />
+          <directionalLight position={[0, 5, 5]} intensity={isLight ? 1.5 : 0.6} color={isLight ? "#ffffff" : "#4b83f5"} />
+          <directionalLight position={[-5, 5, -5]} intensity={isLight ? 1.0 : 0.3} color={isLight ? "#ffffff" : "#8b5cf6"} />
+
           <Suspense fallback={null}>
-            <Environment preset="city" />
-            <Center>
-              <SceneContainer />
-            </Center>
+            <Environment preset={isLight ? "city" : "night"} />
+            {}
+            <SceneContainer />
           </Suspense>
-          
-          <OrbitControls 
+
+          <OrbitControls
             enableZoom={false}
             enablePan={false}
-            minPolarAngle={Math.PI / 4}
+            minPolarAngle={0}
             maxPolarAngle={Math.PI / 2 + 0.1}
           />
         </Canvas>

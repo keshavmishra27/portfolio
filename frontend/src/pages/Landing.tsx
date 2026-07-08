@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ShowroomScene } from '../components/ShowroomScene';
 import { MegatronScene } from '../components/MegatronScene';
+import { EnergyScene } from '../components/EnergyScene';
 import '../index.css';
 
 export const Landing = ({ theme, toggleTheme }: { theme?: string, toggleTheme?: () => void }) => {
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
 
-  // Title fades out completely in the first 30% of scroll
+  
   const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const titleY = useTransform(scrollYProgress, [0, 0.3], [0, -50]);
 
@@ -81,7 +82,7 @@ export const Landing = ({ theme, toggleTheme }: { theme?: string, toggleTheme?: 
         </div>
       </ShowroomScene>
 
-      {/* About Me Section */}
+      {}
       <div style={{ position: 'relative', zIndex: 20, background: 'var(--bg-primary)', padding: '6rem 2rem', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '4rem', alignItems: 'center', width: '100%' }}>
 
@@ -104,8 +105,57 @@ export const Landing = ({ theme, toggleTheme }: { theme?: string, toggleTheme?: 
                 with Three.js, or architecting robust backend APIs with FastAPI, my core focus is
                 always on creating seamless and impactful user experiences.
               </p>
+            </div>
+          </div>
 
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          {}
+          <div className="slide-up stagger-delay-1" style={{ height: '700px', width: '100%', borderRadius: '16px', overflow: 'hidden' }}>
+            <MegatronScene />
+          </div>
+
+        </div>
+      </div>
+
+      {}
+      <div style={{ position: 'relative', zIndex: 20, background: 'var(--bg-glass)', backdropFilter: 'blur(10px)', padding: '6rem 2rem', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: '1px solid var(--border-color)' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '4rem', alignItems: 'center', width: '100%' }}>
+          
+          {}
+          <div className="slide-up" style={{ height: '700px', width: '100%', borderRadius: '16px', overflow: 'hidden' }}>
+            <EnergyScene />
+          </div>
+
+          <div className="slide-up stagger-delay-1">
+            <h2 className="display-lg" style={{ marginBottom: '2rem' }}>Get In Touch</h2>
+            <div style={{ fontSize: '1.2rem', lineHeight: 1.8, color: 'var(--text-secondary)' }}>
+              <p style={{ marginBottom: '2rem' }}>
+                I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+              </p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div>
+                  <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '0.2rem' }}>Email</strong>
+                  <a href="mailto:keshavmishra1729@gmail.com" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={(e) => e.currentTarget.style.color='var(--text-secondary)'}>
+                    keshavmishra1729@gmail.com
+                  </a>
+                </div>
+                
+                <div>
+                  <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '0.2rem' }}>LinkedIn</strong>
+                  <a href="https://www.linkedin.com/in/keshavmishra27/" target="_blank" rel="noreferrer" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={(e) => e.currentTarget.style.color='var(--text-secondary)'}>
+                    linkedin.com/in/keshavmishra27
+                  </a>
+                </div>
+                
+                <div>
+                  <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '0.2rem' }}>GitHub</strong>
+                  <a href="https://github.com/keshavmishra27" target="_blank" rel="noreferrer" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={(e) => e.currentTarget.style.color='var(--text-secondary)'}>
+                    github.com/keshavmishra27
+                  </a>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '3rem' }}>
                 <button onClick={() => navigate('/portfolio')} className="btn btn-primary">
                   Command Center
                 </button>
@@ -114,11 +164,6 @@ export const Landing = ({ theme, toggleTheme }: { theme?: string, toggleTheme?: 
                 </button>
               </div>
             </div>
-          </div>
-
-          {/* Transformer Animation */}
-          <div className="slide-up stagger-delay-1" style={{ height: '700px', width: '100%', borderRadius: '16px', overflow: 'hidden' }}>
-            <MegatronScene />
           </div>
 
         </div>

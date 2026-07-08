@@ -7,12 +7,12 @@ import { motion } from 'framer-motion';
 export const CommandCenter = () => {
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '200vh' }}>
-      {/* 3D Scene */}
+      {}
       <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0 }}>
         <PortfolioScene />
       </div>
 
-      {/* Overlay UI */}
+      {}
       <div style={{ 
         position: 'absolute', 
         top: 0, left: 0, right: 0, 

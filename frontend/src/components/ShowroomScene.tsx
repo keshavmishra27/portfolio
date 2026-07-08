@@ -9,7 +9,7 @@ function Model() {
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
-    // Setup the animation but keep it paused so we can control it via scroll
+    
     const actionNames = Object.keys(actions);
     if (actionNames.length > 0) {
       const action = actions[actionNames[0]];
@@ -25,15 +25,15 @@ function Model() {
     if (actionNames.length > 0) {
       const action = actions[actionNames[0]];
       if (action) {
-        // Calculate scroll progress (0 to 1) over the first window height
+        
         const scrollY = window.scrollY;
         const progress = Math.min(Math.max(scrollY / window.innerHeight, 0), 1);
         
-        // Map progress to animation time
+        
         const duration = action.getClip().duration;
         const targetTime = progress * duration;
         
-        // Smoothly dampen the animation time towards the target (lowered from 4 to 1.5 for extra smoothness)
+        
         action.time = THREE.MathUtils.damp(action.time, targetTime, 1.5, delta);
       }
     }
@@ -54,8 +54,8 @@ function CameraRig() {
       const scrollY = window.scrollY;
       const progress = Math.min(Math.max(scrollY / window.innerHeight, 0), 1);
       
-      // Reduce the travel distance to prevent clipping out of the room
-      // Start at 4, move slightly in to 2.5
+      
+      
       const targetZ = 4 - progress * 1.5; 
       const targetY = 0.5;
       const targetRotationY = progress * Math.PI * 0.1;
@@ -88,7 +88,7 @@ export function ShowroomScene({ children }: { children: React.ReactNode }) {
         </Canvas>
       </div>
       
-      {/* Scrollable Overlay */}
+      {}
       <div style={{ position: 'relative', width: '100%', minHeight: '200vh', zIndex: 1 }}>
         {children}
       </div>

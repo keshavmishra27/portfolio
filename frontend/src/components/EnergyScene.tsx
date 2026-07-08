@@ -3,22 +3,28 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, OrbitControls, Center, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 
-function MegatronModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, rotation?: [number, number, number] }) {
+function EnergyModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, rotation?: [number, number, number] }) {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF('/models/balthazar_rigged__animated.glb');
+  const { scene, animations } = useGLTF('/models/energy.glb');
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {
     
     if (names.length > 0 && actions[names[0]]) {
-      actions[names[0]]?.reset().fadeIn(0.5).play();
+      const action = actions[names[0]];
+      if (action) {
+        action.reset().fadeIn(0.5).setEffectiveTimeScale(2.5).play();
+      }
     }
   }, [names, actions]);
 
   useFrame((state) => {
-    if (group.current && names.length === 0) {
-      
-      group.current.position.y = Math.sin(state.clock.elapsedTime) * 0.1;
+    if (group.current) {
+      if (names.length === 0) {
+        
+        group.current.position.y = Math.sin(state.clock.elapsedTime) * 0.1;
+      }
+      group.current.rotation.y += 0.02; 
     }
   });
 
@@ -29,23 +35,21 @@ function MegatronModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, ro
   );
 }
 
-export function MegatronScene() {
+export function EnergyScene() {
   return (
     <div style={{ width: '100%', height: '100%', minHeight: '500px' }}>
-      <Canvas camera={{ position: [0, 1, 8], fov: 45 }}>
+      <Canvas camera={{ position: [0, 1, 6], fov: 45 }}>
         <ambientLight intensity={1.5} />
-        <directionalLight position={[10, 10, 5]} intensity={2} castShadow />
-        <directionalLight position={[-10, -10, -5]} intensity={1} color="#296ef9" />
-        <directionalLight position={[0, 5, -10]} intensity={1} color="#ff0000" />
-
+        <directionalLight position={[10, 10, 5]} intensity={2} />
+        <directionalLight position={[-10, -10, -5]} intensity={1} color="#00ffcc" />
+        
         <Suspense fallback={null}>
           <Environment preset="city" />
           <Center>
-            {}
-            <MegatronModel scale={1.5} rotation={[0, Math.PI / 6, 0]} />
+            <EnergyModel scale={2} rotation={[0, 0, 0]} />
           </Center>
         </Suspense>
-        <OrbitControls enableZoom={false} />
+        <OrbitControls enableZoom={false} autoRotate={false} />
       </Canvas>
     </div>
   );

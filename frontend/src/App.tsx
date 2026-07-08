@@ -13,6 +13,7 @@ import * as THREE from 'three';
 import './index.css';
 
 import { AILabScene } from './components/AILabScene';
+import { AudioPlayer } from './components/AudioPlayer';
 
 const LabPlaceholder = () => (
   <AILabScene />
@@ -74,7 +75,7 @@ const Projects = () => {
 
   return (
     <>
-      {/* 3D Scene - Fixed Background */}
+      {}
       <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0 }}>
         <Canvas shadows camera={{ position: [0, 1.5, 6], fov: 45 }}>
           <ambientLight intensity={1.5} />
@@ -95,9 +96,9 @@ const Projects = () => {
         </Canvas>
       </div>
 
-      {/* Scrollable Content */}
+      {}
       <div className="slide-up stagger-delay-1" style={{ position: 'relative', width: '100%', minHeight: '200vh', pointerEvents: 'none' }}>
-        {/* Overlay UI */}
+        {}
         <div style={{
           position: 'absolute',
           top: 0, left: 0, right: 0,
@@ -170,12 +171,12 @@ graph TD
 
 const ProjectShowcase = () => {
   const { id } = useParams<{ id: string }>();
-  const [project, setProject] = useState<Project | null | undefined>(null); // null = loading, undefined = not found
+  const [project, setProject] = useState<Project | null | undefined>(null); 
 
   useEffect(() => {
     fetchProjects().then(projects => {
       const p = projects.find(p => p.id === id);
-      setProject(p); // will set to undefined if not found
+      setProject(p); 
     });
   }, [id]);
 
@@ -202,7 +203,7 @@ const ProjectShowcase = () => {
         <h1 className="display-lg" style={{ marginBottom: '0.5rem' }}>{project.name}</h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '2rem' }}>{project.timeline}</p>
 
-        {/* Video or Demo Showcase */}
+        {}
         <div style={{ width: '100%', height: '400px', borderRadius: '12px', overflow: 'hidden', background: '#000', border: '1px solid var(--border-color)', marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {project.video_url ? (
             <video src={project.video_url} controls autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
@@ -298,11 +299,12 @@ function App() {
           </Layout>
         } />
       </Routes>
+      <AudioPlayer />
     </Router>
   );
 }
 
-// Update Layout Footer
+
 function Layout({ children, theme, toggleTheme }: { children: React.ReactNode, theme: string, toggleTheme: () => void }) {
 
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SkillShowcaseScene, type Skill, type SkillProject } from '../components/SkillShowcaseScene';
-import { BookOpen, FolderGit2, ChevronDown, ChevronUp } from 'lucide-react';
-// @ts-ignore
+import { FolderGit2, ChevronDown, ChevronUp } from 'lucide-react';
+
 import skillsData from '../data/skills.json';
 
 const FEATURED_SKILLS = [
@@ -16,10 +16,10 @@ const FEATURED_SKILLS = [
 export const Skillset = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
 
-  // Track expanded state per skill name
+  
   const [expandedProjects, setExpandedProjects] = useState<Record<string, number | null>>({});
 
-  // Background model state
+  
   const [activeModel, setActiveModel] = useState<string>(FEATURED_SKILLS[0].modelPath);
   const [activeLogo, setActiveLogo] = useState<string>(FEATURED_SKILLS[0].logo);
   const [activeScale, setActiveScale] = useState<number>(FEATURED_SKILLS[0].scale);
@@ -43,7 +43,7 @@ export const Skillset = () => {
   const featuredSkillData = FEATURED_SKILLS.map(fs => {
     const data = skills.find(s => s.skill === fs.name);
     return { ...fs, data };
-  }).filter(fs => fs.data); // only those we found data for
+  }).filter(fs => fs.data); 
 
   const toggleProject = (skillName: string, projectIndex: number) => {
     setExpandedProjects(prev => ({
@@ -55,7 +55,7 @@ export const Skillset = () => {
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh', padding: '2rem' }}>
 
-      {/* Fixed Background 3D Model Layer */}
+      {}
       <div style={{
         position: 'fixed', top: 0, left: 0,
         width: '100vw', height: '100vh',
@@ -72,7 +72,7 @@ export const Skillset = () => {
           />
         </div>
 
-        {/* Floating Logo overlay over the HUD */}
+        {}
         <AnimatePresence mode="wait">
           <motion.img
             key={activeLogo}
@@ -87,15 +87,15 @@ export const Skillset = () => {
               maxWidth: '180px',
               filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.2))',
               zIndex: 1,
-              marginTop: '-5vh' // Slight bump up
+              marginTop: '-5vh' 
             }}
           />
         </AnimatePresence>
       </div>
 
-      {/* Content Section - Foreground */}
+      {}
       <div style={{ position: 'relative', zIndex: 1 }}>
-        {/* Title */}
+        {}
         <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2rem', marginBottom: '8rem' }}>
           <h1 className="display-md" style={{ textAlign: 'center', background: 'var(--bg-glass)', padding: '1rem 2rem', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
             My Best Skills
@@ -105,7 +105,7 @@ export const Skillset = () => {
           </p>
         </section>
 
-        {/* Sequential Skills */}
+        {}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '40vh', maxWidth: '1400px', margin: '0 auto', paddingBottom: '20vh' }}>
           {featuredSkillData.map((skillItem, index) => {
             const { data, modelPath, scale } = skillItem;
@@ -134,12 +134,12 @@ export const Skillset = () => {
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
                   backdropFilter: 'blur(16px)',
                   maxWidth: '600px',
-                  // Stagger left and right so the center model is somewhat visible
+                  
                   marginLeft: index % 2 === 0 ? '0' : 'auto',
                   marginRight: index % 2 === 0 ? 'auto' : '0'
                 }}
               >
-                {/* Skill Info & Projects */}
+                {}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                     <h2 className="display-lg" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -163,7 +163,7 @@ export const Skillset = () => {
                       <FolderGit2 size={24} /> Applied In ({data.used_in.length} Projects):
                     </h3>
 
-                    {/* Scrollable list of projects */}
+                    {}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxHeight: '400px', overflowY: 'auto', paddingRight: '1rem' }}>
                       {data.used_in.map((repo: SkillProject, i: number) => {
                         const isExpanded = expandedProjects[data.skill] === i;
