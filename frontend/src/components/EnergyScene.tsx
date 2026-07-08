@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 function EnergyModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, rotation?: [number, number, number] }) {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF('/models/energy.glb');
+  const { scene, animations } = useGLTF(`${import.meta.env.BASE_URL}models/energy.glb`);
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {

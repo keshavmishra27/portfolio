@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 function Model() {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF('/models/the_steampunk_vault.glb');
+  const { scene, animations } = useGLTF(`${import.meta.env.BASE_URL}models/the_steampunk_vault.glb`);
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {

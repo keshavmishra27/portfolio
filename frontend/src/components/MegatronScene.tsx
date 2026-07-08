@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 function MegatronModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, rotation?: [number, number, number] }) {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF('/models/balthazar_rigged__animated.glb');
+  const { scene, animations } = useGLTF(`${import.meta.env.BASE_URL}models/balthazar_rigged__animated.glb`);
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {

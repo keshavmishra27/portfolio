@@ -39,7 +39,7 @@ export const FALLBACK_POSITIONS: [number, number, number][] = [
 
 function Model() {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF('/models/sci-fi_computer_room.glb');
+  const { scene, animations } = useGLTF(`${import.meta.env.BASE_URL}models/sci-fi_computer_room.glb`);
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {

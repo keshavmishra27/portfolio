@@ -6,11 +6,11 @@ import { FolderGit2, ChevronDown, ChevronUp } from 'lucide-react';
 import skillsData from '../data/skills.json';
 
 const FEATURED_SKILLS = [
-  { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', modelPath: '/models/sci_hud_collection.glb', scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
-  { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', modelPath: '/models/sci_hud_collection.glb', scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
-  { name: 'TensorFlow', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg', modelPath: '/models/sci_hud_collection.glb', scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
-  { name: 'Scikit-learn', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg', modelPath: '/models/sci_hud_collection.glb', scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
-  { name: 'Pandas', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg', modelPath: '/models/sci_hud_collection.glb', scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] }
+  { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', modelPath: `${import.meta.env.BASE_URL}models/sci_hud_collection.glb`, scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
+  { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', modelPath: `${import.meta.env.BASE_URL}models/sci_hud_collection.glb`, scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
+  { name: 'TensorFlow', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg', modelPath: `${import.meta.env.BASE_URL}models/sci_hud_collection.glb`, scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
+  { name: 'Scikit-learn', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg', modelPath: `${import.meta.env.BASE_URL}models/sci_hud_collection.glb`, scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] },
+  { name: 'Pandas', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg', modelPath: `${import.meta.env.BASE_URL}models/sci_hud_collection.glb`, scale: 1.0, positionY: -0.5, rotation: [Math.PI / 2.5, 0, 0] as [number, number, number] }
 ];
 
 export const Skillset = () => {

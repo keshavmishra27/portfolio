@@ -20,7 +20,7 @@ const LabPlaceholder = () => (
 );
 
 function ChunLiScene() {
-  const { scene } = useGLTF('/models/chun-li.glb');
+  const { scene } = useGLTF(`${import.meta.env.BASE_URL}models/chun-li.glb`);
   return <primitive object={scene} />;
 }
 
