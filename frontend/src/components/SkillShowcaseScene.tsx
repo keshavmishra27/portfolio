@@ -40,6 +40,54 @@ function ShowcaseModel({ modelPath, scale = 1 }: { modelPath: string, scale?: nu
   );
 }
 
+function AnimatedSceneContent({
+  modelPath,
+  scale,
+  positionX,
+  positionY,
+  rotation
+}: {
+  modelPath: string;
+  scale: number;
+  positionX: number;
+  positionY: number;
+  rotation: [number, number, number];
+}) {
+  const group = useRef<THREE.Group>(null);
+  const controlsTarget = useRef(new THREE.Vector3(positionX, positionY + 1, 0));
+
+  useFrame((state, delta) => {
+    if (group.current) {
+      group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, positionX, 4 * delta);
+      group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, positionY, 4 * delta);
+      
+      const currentRotation = new THREE.Vector3(group.current.rotation.x, group.current.rotation.y, group.current.rotation.z);
+      const targetRotation = new THREE.Vector3(...rotation);
+      currentRotation.lerp(targetRotation, 4 * delta);
+      group.current.rotation.set(currentRotation.x, currentRotation.y, currentRotation.z);
+    }
+
+    const targetVector = new THREE.Vector3(positionX, positionY + 1, 0);
+    controlsTarget.current.lerp(targetVector, 4 * delta);
+  });
+
+  return (
+    <>
+      <group ref={group}>
+        <Center>
+          <ShowcaseModel key={modelPath} modelPath={modelPath} scale={scale} />
+        </Center>
+      </group>
+      <OrbitControls 
+        enableZoom={false} 
+        autoRotate 
+        autoRotateSpeed={0.8} 
+        target={controlsTarget.current} 
+      />
+    </>
+  );
+}
+
 export function SkillShowcaseScene({ 
   modelPath, 
   scale = 2.5, 
@@ -63,13 +111,14 @@ export function SkillShowcaseScene({
         
         <Suspense fallback={null}>
           <Environment preset="city" />
-          <group position={[positionX, positionY, 0]} rotation={rotation}>
-            <Center>
-              <ShowcaseModel key={modelPath} modelPath={modelPath} scale={scale} />
-            </Center>
-          </group>
+          <AnimatedSceneContent 
+            modelPath={modelPath}
+            scale={scale}
+            positionX={positionX}
+            positionY={positionY}
+            rotation={rotation}
+          />
         </Suspense>
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} target={[positionX, positionY + 1, 0]} />
       </Canvas>
     </div>
   );

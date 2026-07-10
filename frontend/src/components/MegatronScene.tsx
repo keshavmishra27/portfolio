@@ -9,7 +9,7 @@ function MegatronModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, ro
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {
-    
+
     if (names.length > 0 && actions[names[0]]) {
       actions[names[0]]?.reset().fadeIn(0.5).play();
     }
@@ -17,7 +17,7 @@ function MegatronModel({ scale = 1, rotation = [0, 0, 0] }: { scale?: number, ro
 
   useFrame((state) => {
     if (group.current && names.length === 0) {
-      
+
       group.current.position.y = Math.sin(state.clock.elapsedTime) * 0.1;
     }
   });
@@ -41,7 +41,7 @@ export function MegatronScene() {
         <Suspense fallback={null}>
           <Environment preset="city" />
           <Center>
-            {}
+            { }
             <MegatronModel scale={1.5} rotation={[0, Math.PI / 6, 0]} />
           </Center>
         </Suspense>

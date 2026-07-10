@@ -1,11 +1,17 @@
 # Node.js / Frontend
 node_modules/
 dist/
+dist-ssr/
 build/
 .npm
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.eslintcache
+
+# Env files
 .env
 .env.*
 
@@ -41,6 +47,11 @@ Thumbs.db
 *.swp
 *.swo
 *~
+.fleet/
+
+# Vite / Testing
+*.local
+coverage/
 
 # Custom Files & Media
 DESIGN.md
@@ -55,6 +66,8 @@ DESIGN.md
 *.fbx
 *.blend
 
-# Utility Scripts
+# Utility Scripts (Temporary/Fixes)
 strip_py.py
 strip_js.cjs
+remove_comments.js
+fix_ts*.js

@@ -3,7 +3,7 @@ import { useState } from 'react';
 export function AudioPlayer() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const YOUTUBE_VIDEO_ID = "dtxSA2OLlSw";
+  const YOUTUBE_VIDEO_ID = "5qap5aO4i9A"; 
 
   return (
     <div style={{
@@ -17,28 +17,28 @@ export function AudioPlayer() {
       gap: '10px'
     }}>
       <div style={{
-        background: 'var(--bg-glass)',
-        backdropFilter: 'blur(10px)',
-        borderRadius: '12px',
-        padding: '8px',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-        border: '1px solid var(--border-color)',
-        display: isOpen ? 'block' : 'none',
-        animation: 'slideUp 0.3s ease-out'
-      }}>
-        <iframe
-          width="300"
-          height="200"
-          src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`}
-          title="YouTube music player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          style={{ borderRadius: '8px' }}
-          allowFullScreen>
-        </iframe>
+          background: 'var(--bg-glass)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '12px',
+          padding: '8px',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+          border: '1px solid var(--border-color)',
+          display: isOpen ? 'block' : 'none',
+          animation: 'slideUp 0.3s ease-out'
+        }}>
+          <iframe 
+            width="300" 
+            height="200" 
+            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`} 
+            title="YouTube music player" 
+            frameBorder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            style={{ borderRadius: '8px' }}
+            allowFullScreen>
+          </iframe>
       </div>
-
-      <button
+      
+      <button 
         onClick={() => setIsOpen(!isOpen)}
         style={{
           background: 'var(--bg-glass)',
