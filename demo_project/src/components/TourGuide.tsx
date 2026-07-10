@@ -99,13 +99,14 @@ const TooltipContent = ({ title, text }: { title?: string, text: string }) => {
 
 function VirtualAssistant({ isVisible }: { isVisible: boolean }) {
   if (!isVisible) return null;
+  const isMobile = window.innerWidth <= 768;
   return (
     <div style={{
       position: 'fixed',
-      bottom: '30px',
-      right: '30px',
-      width: '350px',
-      height: '450px',
+      bottom: isMobile ? '10px' : '30px',
+      right: isMobile ? '10px' : '30px',
+      width: isMobile ? '150px' : '350px',
+      height: isMobile ? '200px' : '450px',
       zIndex: 9999,
       pointerEvents: 'auto' 
     }}>
@@ -246,7 +247,7 @@ export function TourGuide() {
             primaryColor: '#00fff5',
             backgroundColor: '#ffffff',
             textColor: '#1a1a2e',
-            zIndex: 1000,
+            zIndex: 10000,
           },
           tooltipContainer: {
             textAlign: 'left',
